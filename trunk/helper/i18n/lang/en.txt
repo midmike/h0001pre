@@ -1,0 +1,24 @@
+{
+ 
+ "warning" : "Warning!",
+ "login" : "LOGIN",
+ "cancel" : "Cancel",
+ 
+ "message.user.login.remember.me" : "Remember me",
+ "message.user.login.fail" : "The username/password you entered is incorrect or your user have been expaire",
+ "message.user.login.enter.username" : "Enter username",
+ "message.user.login.enter.password" : "Enter password",
+ "message.user.index.create.new.account" : "Create new account",
+ 
+ "message.user.register.fullname" : "Full name",
+ "message.user.register.username" : "Choose User Name",
+ "message.user.register.address" : "Address",
+ "message.user.register.phone" : "Phone Number",
+ "message.user.register.password" : "Password",
+ "message.user.register.confirmpassword" : "re-enter Password",
+ 
+ 
+ 
+ "message.user.titile.login" : "Login",
+ "message.user.titile.register" : "Create New Account"
+}
