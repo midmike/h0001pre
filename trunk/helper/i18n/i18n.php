@@ -23,7 +23,7 @@
           echo $phrase;
         }
       }
-      public static function changeLacale($locale,$session) {
+      public static function changeLocale($locale,$session) {
         Session_Handler::checkSession();
         $_SESSION["locale"] = setlocale(LC_ALL,$locale);
       }

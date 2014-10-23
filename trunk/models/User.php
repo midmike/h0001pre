@@ -1,6 +1,6 @@
 <?php
 class User extends BaseModel {
-	private $id;
+	
 	private $name;
 	private $status;
 	private $address;
@@ -34,10 +34,15 @@ class User extends BaseModel {
 	public function getPassword() {
 		return $this->password;
 	}
-	public function readDatabase($where = null, $params = null) {
+	public function readDatabase() {
+		$this->setSQL ( 'select * from tbuser where id = '.  $this->id );
+		$result = $this->excuteRead ();
+		$this->prepare ( $result );
+	}
+	public function readDatabaseAll($where = null, $params = null) {
 		$this->setSQL ( 'select * from tbuser ' . $where );
-		$result = $this->excuteSql ( null, $params );
-		return $result;
+		$result = $this->excuteRead ( null, $params );
+		$this->prepare ( $result );
 	}
 	public function insertDatabase() {
 		$options = [ 
@@ -61,14 +66,14 @@ class User extends BaseModel {
 		 */
 		$username = $this->username;
 		$password = $this->password;
-		$result = $this->readDatabase ( 'where username=?', array (
+		$this->readDatabase ( 'where username=?', array (
 				$username 
 		) );
-		$this->prepare ( $result );
+		print_r($this);
 		if (! empty ( $result )) {
 			if ($this->username == $username && password_verify ( $password, $this->password )) {
 				setcookie ( 'user', serialize ( $this ), time () + (900), "/" ); // 900s = 15m
-				                                                          // echo "add cookies";
+				                                                                 // echo "add cookies";
 				return TRUE; // true
 			}
 			return FALSE; // true
@@ -93,6 +98,17 @@ class User extends BaseModel {
 		$this->address = $result ['address'];
 		$this->password = $result ['password'];
 		$this->username = $result ['username'];
+		$this->cache = $result['cache'];
+		$this->modifydate = $result['modifydate'];
+		$this->createdate = $result['createdate'];
+		$this->editedby = $result['editeby'];
+	}
+	public function prepareAll($result, $obj) {
+		$allRows = new ArrayObject ();
+		while ( $result ) {
+			$this->prepare($result);
+			$allRows.append ( $this );
+		}
 	}
 }
 ?>

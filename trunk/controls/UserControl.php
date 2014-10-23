@@ -22,7 +22,7 @@
           if ($user->isExist()) {
             header("Location:../");
           } else {
-            header("Location:../?fail");
+            //header("Location:../?fail");
           }
           die();
         }
