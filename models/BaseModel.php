@@ -36,12 +36,13 @@ class BaseModel {
 	protected function setSQL($sql) {
 		$this->sql = $sql;
 	}
-	public function excuteRead($where = null, $params = null) {
+	public function excuteRead($params = null) {
 		$result = DatabaseHandler::Prepare ( $this->sql );
-		$result = DatabaseHandler::GetRow ( $result, $params );
+		$result = DatabaseHandler::GetRow( $result, $params );
 		return $result;
 	}
 	public function excuteUpdate($where = null, $params = null) {
+		//still not done with it yet
 		$sql = $this->sql . "" . $where;
 		$result = DatabaseHandler::Prepare ( $sql );
 		$result = DatabaseHandler::GetInsert ( $result, $params );

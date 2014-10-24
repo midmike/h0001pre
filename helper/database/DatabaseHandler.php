@@ -67,7 +67,7 @@
         try{
           self::Execute($statementHandler,$params);
           $result=$statementHandler->fetch(PDO::FETCH_NUM);
-          $result=$reult[0];
+          $result=$result[0];
         }catch(PDOException $e){
           self::Close();
           echo "Class DatabaseHandler.GetOne: ".$e->getMessage();
