@@ -1,12 +1,14 @@
 <?php
+/*
+ * Author midmike
+ */
 class User extends BaseModel {
-	
 	private $name;
 	private $status;
 	private $address;
 	private $phone;
-	public $username;
-	public $password;
+	private $username;
+	private $password;
 	public function setUsername($value) {
 		$this->username = $value;
 	}
@@ -34,15 +36,16 @@ class User extends BaseModel {
 	public function getPassword() {
 		return $this->password;
 	}
-	public function readDatabase() {
-		$this->setSQL ( 'select * from tbuser where id = '.  $this->id );
-		$result = $this->excuteRead ();
+	public function readDatabase($where = null, $params = null) {
+		$this->setSQL ( 'select * from tbuser ' . $where );
+		$result = $this->excuteRead ($params);
 		$this->prepare ( $result );
+		return $result;
 	}
 	public function readDatabaseAll($where = null, $params = null) {
 		$this->setSQL ( 'select * from tbuser ' . $where );
 		$result = $this->excuteRead ( null, $params );
-		$this->prepare ( $result );
+		return $this->prepareAll ( $result );
 	}
 	public function insertDatabase() {
 		$options = [ 
@@ -59,25 +62,22 @@ class User extends BaseModel {
 		$this->excuteInsert ( "tbuser", "`name`, `status`, `address`, `phone`, `username`, `password`", $params, $this );
 	}
 	public function isExist() {
-		/*
-		 * $options = ['cost' => 12];
-		 * $this->setSQL("UPDATE `tbuser` SET `password` = '".password_hash('123', PASSWORD_BCRYPT, $options)."' WHERE `tbuser`.`id` = 1");
-		 * $result= $this->excuteSql(null,$params);
-		 */
 		$username = $this->username;
 		$password = $this->password;
-		$this->readDatabase ( 'where username=?', array (
+		//return to result to check name have in record or not
+		$result = $this->readDatabase ( 'where username = ?', array (
 				$username 
 		) );
-		print_r($this);
 		if (! empty ( $result )) {
 			if ($this->username == $username && password_verify ( $password, $this->password )) {
 				setcookie ( 'user', serialize ( $this ), time () + (900), "/" ); // 900s = 15m
 				                                                                 // echo "add cookies";
 				return TRUE; // true
 			}
-			return FALSE; // true
+			echo "password incorrect";
+			return FALSE; // false
 		} else {
+			echo "\$result empty in isExist()";
 			return FALSE; // false
 		}
 	}
@@ -96,12 +96,12 @@ class User extends BaseModel {
 		$this->name = $result ['name'];
 		$this->status = $result ['status'];
 		$this->address = $result ['address'];
-		$this->password = $result ['password'];
+		$this->password = $result ['password']; 
 		$this->username = $result ['username'];
 		$this->cache = $result['cache'];
 		$this->modifydate = $result['modifydate'];
 		$this->createdate = $result['createdate'];
-		$this->editedby = $result['editeby'];
+		$this->editedby = $result['editedby'];
 	}
 	public function prepareAll($result, $obj) {
 		$allRows = new ArrayObject ();
@@ -109,6 +109,7 @@ class User extends BaseModel {
 			$this->prepare($result);
 			$allRows.append ( $this );
 		}
+		return $allRows;
 	}
 }
 ?>
