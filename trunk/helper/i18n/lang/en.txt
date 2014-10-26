@@ -3,6 +3,7 @@
  "warning" : "Warning!",
  "login" : "LOGIN",
  "cancel" : "Cancel",
+ "active" : "Active",
  
  "message.user.login.remember.me" : "Remember me",
  "message.user.login.fail" : "The username/password you entered is incorrect or your user have been expaire",
@@ -17,8 +18,15 @@
  "message.user.register.password" : "Password",
  "message.user.register.confirmpassword" : "re-enter Password",
  
- 
- 
  "message.user.titile.login" : "Login",
- "message.user.titile.register" : "Create New Account"
+ "message.user.titile.register" : "Create New Account",
+ 
+ "foods" : "Foods",
+ "food.code" : "Food code",
+ "food.name" : "Food name",
+ "food.type" : "Food type",
+ "image.and.price" : "Images and prices",
+ "add.file" : "Add file...",
+ "start.upload" : "Start upload",
+ "create.new.food" : "Create new food"
 }
