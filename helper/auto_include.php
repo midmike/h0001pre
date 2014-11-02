@@ -6,7 +6,8 @@
             'models/',
             'helper/database/',
             'helper/session/',
-            'helper/i18n/'
+            'helper/i18n/',
+        	'helper/Tools/'
         );
 
         //for each directory

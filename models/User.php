@@ -1,4 +1,5 @@
 <?php
+require_once ("BaseModel.php");
 /*
  * Author midmike
  */
@@ -38,7 +39,7 @@ class User extends BaseModel {
 	}
 	public function readDatabase($where = null, $params = null) {
 		$this->setSQL ( 'select * from tbuser ' . $where );
-		$result = $this->excuteRead ($params);
+		$result = $this->excuteRead ( $params );
 		$this->prepare ( $result );
 		return $result;
 	}
@@ -47,24 +48,24 @@ class User extends BaseModel {
 		$result = $this->excuteRead ( null, $params );
 		return $this->prepareAll ( $result );
 	}
-	public function insertDatabase() {
+	public function insertDatabase($user) {
 		$options = [ 
 				'cost' => 12 
 		];
-		$params = array (
-				$this->name,
-				$this->status,
-				$this->address,
-				$this->phone,
-				$this->username,
-				password_hash ( $this->password, PASSWORD_BCRYPT, $options ) 
-		);
-		$this->excuteInsert ( "tbuser", "`name`, `status`, `address`, `phone`, `username`, `password`", $params, $this );
+		$this->password = password_hash ( $this->password, PASSWORD_BCRYPT, $options );
+		$this->excuteInsert ( "tbuser", get_object_vars ($this), $user );
+	}
+	public function UpdateDatabase($user){
+		$options = [
+				'cost' => 12
+		];
+		$this->password = password_hash ( $this->password, PASSWORD_BCRYPT, $options );
+		$this->excuteUpdate( "tbuser", get_object_vars ($this), $user );
 	}
 	public function isExist() {
 		$username = $this->username;
 		$password = $this->password;
-		//return to result to check name have in record or not
+		// return to result to check name have in record or not
 		$result = $this->readDatabase ( 'where username = ?', array (
 				$username 
 		) );
@@ -96,20 +97,12 @@ class User extends BaseModel {
 		$this->name = $result ['name'];
 		$this->status = $result ['status'];
 		$this->address = $result ['address'];
-		$this->password = $result ['password']; 
+		$this->password = $result ['password'];
 		$this->username = $result ['username'];
-		$this->cache = $result['cache'];
-		$this->modifydate = $result['modifydate'];
-		$this->createdate = $result['createdate'];
-		$this->editedby = $result['editedby'];
-	}
-	public function prepareAll($result, $obj) {
-		$allRows = new ArrayObject ();
-		while ( $result ) {
-			$this->prepare($result);
-			$allRows.append ( $this );
-		}
-		return $allRows;
+		$this->cache = $result ['cache'];
+		$this->modifydate = $result ['modifydate'];
+		$this->createdate = $result ['createdate'];
+		$this->editedby = $result ['editedby'];
 	}
 }
 ?>

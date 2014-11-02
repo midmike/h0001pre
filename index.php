@@ -20,6 +20,10 @@ if ($session == "kh") {
 $user = new User ();
 if ($user->isLogin ()) {
 	require_once ('models/site.php');
+	// HTML HEAD
+	require_once 'public/masterPages/head.php';
+	// BODY
+	echo '<body class="tooltips">';
 	// ===================
 	// MAIN
 	// ===================

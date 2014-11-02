@@ -1,10 +1,4 @@
 <?php
-// HTML HEAD
-require_once 'head.php';
-
-// BODY
-echo '<body class="tooltips">';
-
 // The color setting box on the right.
 require_once 'settingBoxRight.php';
 
