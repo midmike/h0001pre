@@ -32,10 +32,6 @@ class UserControl {
 	}
 	public Static function Create() {
 		$log_user = Tool::getLoginUser ();
-		if ($log_user == false) {
-			header ( "Location:../404.html" );
-			die ();
-		}
 		$user = new User ();
 		if (isset ( $_POST ["username"] ) && ! empty ( $_POST ["username"] )) {
 			$user->setUsername ( $_POST ["username"] );

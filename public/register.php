@@ -7,7 +7,7 @@ BEGIN PAGE
 	<img src="assets/img/logo-login.png" class="logo" alt="Logo">
 </div>
 <div class="login-wrapper">
-	<form role="form" method="post" action="controls/UserControl.php?Create">
+	<form role="form" method="post" action="controls/UserControl.php?<?php CREATE?>">
 		<div class="form-group has-feedback lg left-feedback no-label">
 		  <input name="name" type="text" class="form-control no-border input-lg rounded" placeholder="<?php i18n::getLabel("message.user.register.fullname");?>" autofocus>
 		  <span class="fa fa-male form-control-feedback"></span>

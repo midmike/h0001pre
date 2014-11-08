@@ -34,6 +34,8 @@ if ($user->isLogin ()) {
 				require_once ('public/register.php');break;
 			case FOOD :
 				require_once 'public/pages/uploadPanel.php';break;
+			case MANAGE_USER :
+				require_once 'public/User/pageManageUser.php';break;
 			default :
 				require_once ('public/masterPages/dashboard.php');
 		}

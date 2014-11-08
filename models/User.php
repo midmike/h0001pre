@@ -1,9 +1,12 @@
 <?php
 require_once ("BaseModel.php");
+
 /*
  * Author midmike
  */
 class User extends BaseModel {
+	const TABLENAME = "tbuser";
+	const STATUS_ADMIN = "0";
 	private $name;
 	private $status;
 	private $address;
@@ -17,7 +20,7 @@ class User extends BaseModel {
 		$this->password = $value;
 	}
 	public function setStatus($value) {
-		$this->status = $value;
+		$this	->status = $value;
 	}
 	public function setAddress($value) {
 		$this->address = $value;
@@ -27,6 +30,12 @@ class User extends BaseModel {
 	}
 	public function setName($value) {
 		$this->name = $value;
+	}
+	public function getName() {
+		return $this->name;
+	}
+	public function getStatus() {
+		return $this->status;
 	}
 	public function getId() {
 		return $this->id;
@@ -53,14 +62,14 @@ class User extends BaseModel {
 				'cost' => 12 
 		];
 		$this->password = password_hash ( $this->password, PASSWORD_BCRYPT, $options );
-		$this->excuteInsert ( "tbuser", get_object_vars ($this), $user );
+		$this->excuteInsert ( "tbuser", get_object_vars ( $this ), $user );
 	}
-	public function UpdateDatabase($user){
-		$options = [
-				'cost' => 12
+	public function UpdateDatabase($user) {
+		$options = [ 
+				'cost' => 12 
 		];
 		$this->password = password_hash ( $this->password, PASSWORD_BCRYPT, $options );
-		$this->excuteUpdate( "tbuser", get_object_vars ($this), $user );
+		$this->excuteUpdate ( "tbuser", get_object_vars ( $this ), $user );
 	}
 	public function isExist() {
 		$username = $this->username;
@@ -103,6 +112,79 @@ class User extends BaseModel {
 		$this->modifydate = $result ['modifydate'];
 		$this->createdate = $result ['createdate'];
 		$this->editedby = $result ['editedby'];
+	}
+	public function getStringStatus($value) {
+		if (self::STATUS_ADMIN == $value) {
+			return "Administrator";
+		}
+		return null;
+	}
+	public function dataTable() {
+		/*
+		 * DataTables example server-side processing script.
+		 *
+		 * Please note that this script is intentionally extremely simply to show how
+		 * server-side processing can be implemented, and probably shouldn't be used as
+		 * the basis for a large complex system. It is suitable for simple use cases as
+		 * for learning.
+		 */
+		
+		// DB table to use
+		$table = self::TABLENAME;
+		
+		// Table's primary key
+		$primaryKey = 'id';
+		
+		// Array of database columns which should be read and sent back to DataTables.
+		// The `db` parameter represents the column name in the database, while the `dt`
+		// parameter represents the DataTables column identifier. In this case simple
+		// indexes
+		$columns = array (
+				array (
+						'db' => 'id',
+						'dt' => 0,
+						'formatter' => function ($d, $row) {
+							return "<input type='radio' value='$d' class='i-grey' name='i-grey-radio' checked>";
+						}
+						
+				),
+				array (
+						'db' => 'name',
+						'dt' => 1 
+				),
+				array (
+						'db' => 'status',
+						'dt' => 2,
+						'formatter' => function ($d, $row) {
+							return $this->getStringStatus ( $d );
+						} 
+				),
+				array (
+						'db' => 'address',
+						'dt' => 3 
+				),
+				array (
+						'db' => 'phone',
+						'dt' => 4 
+				),
+				array (
+						'db' => 'username',
+						'dt' => 5 
+				)
+				
+				
+		);
+		// SQL server connection information
+		$sql_details = array (
+				'user' => DB_USERNAME,
+				'pass' => DB_PASSWORD,
+				'db' => DB_DATABASE,
+				'host' => DB_SERVER 
+		);
+		require( 'ssp.class.php' );
+		echo json_encode(
+				SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
+		);
 	}
 }
 ?>
