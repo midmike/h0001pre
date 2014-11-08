@@ -1,30 +1,30 @@
-	<head>
-		<meta charset="utf-8" http-equiv="refresh">
-		<?php require_once 'public/require_meta.php';?>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<meta name="description" content="Sentir, Responsive admin and dashboard UI kits template">
-		<meta name="keywords" content="admin,bootstrap,template,responsive admin,dashboard template,web apps template">
-		<meta name="author" content="Ari Rusmanto, Isoh Design Studio, Warung Themes">
+<!-- 	<head> -->
+<!-- 		<meta charset="utf-8" http-equiv="refresh"> -->
+<!-- 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
+<!-- 		<meta name="description" content="Sentir, Responsive admin and dashboard UI kits template"> -->
+<!-- 		<meta name="keywords" content="admin,bootstrap,template,responsive admin,dashboard template,web apps template"> -->
+<!-- 		<meta name="author" content="Ari Rusmanto, Isoh Design Studio, Warung Themes"> -->
         
         <title><?php echo SITE_TITLE;?> - <?php i18n::getLabel("message.user.titile.login");?></title>
 
 		<!-- BOOTSTRAP CSS (REQUIRED ALL PAGE)-->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+<!-- 		<link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
 
 		<!-- PLUGINS CSS -->
-		<link href="assets/plugins/prettify/prettify.min.css" rel="stylesheet">
-		<link href="assets/plugins/owl-carousel/owl.carousel.min.css" rel="stylesheet">
-		<link href="assets/plugins/owl-carousel/owl.theme.min.css" rel="stylesheet">
-		<link href="assets/plugins/owl-carousel/owl.transitions.min.css" rel="stylesheet">
-		<link href="assets/plugins/icheck/skins/all.css" rel="stylesheet">
-		<link href="assets/plugins/chosen/chosen.min.css" rel="stylesheet">
+<!-- 		<link href="assets/plugins/prettify/prettify.min.css" rel="stylesheet"> -->
+<!-- 		<link href="assets/plugins/owl-carousel/owl.carousel.min.css" rel="stylesheet"> -->
+<!-- 		<link href="assets/plugins/owl-carousel/owl.theme.min.css" rel="stylesheet"> -->
+<!-- 		<link href="assets/plugins/owl-carousel/owl.transitions.min.css" rel="stylesheet"> -->
+<!-- 		<link href="assets/plugins/icheck/skins/all.css" rel="stylesheet"> -->
+<!-- 		<link href="assets/plugins/chosen/chosen.min.css" rel="stylesheet"> -->
 
 
 		<!-- MAIN CSS (REQUIRED ALL PAGE)-->
-		<link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-		<link href="assets/css/style.css" rel="stylesheet">
-		<link href="assets/css/style-responsive.css" rel="stylesheet">
-	</head>
+<!-- 		<link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
+<!-- 		<link href="assets/css/style.css" rel="stylesheet"> -->
+<!-- 		<link href="assets/css/style-responsive.css" rel="stylesheet"> -->
+<!-- 	</head> -->
+    <?php require_once 'public/masterPages/head.php';?>
 
 	<body class="login tooltips">
 		<!--

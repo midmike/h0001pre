@@ -8,6 +8,7 @@
 	content="admin,bootstrap,template,responsive admin,dashboard template,web apps template">
 <meta name="author"
 	content="Ari Rusmanto, Isoh Design Studio, Warung Themes">
+	
 <title>Resmanag</title>
 
 
@@ -49,6 +50,14 @@
 	rel="stylesheet">
 <link href="assets/css/style.css" rel="stylesheet">
 <link href="assets/css/style-responsive.css" rel="stylesheet">
+
+<!-- Meta icon and full screen -->
+
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="shortcut icon" href="assets/img/favicon.ico"/>
+<link rel="icon" href="apple-touch-icon.png"> 
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

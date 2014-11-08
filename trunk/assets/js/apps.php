@@ -1,3 +1,8 @@
+<script type="text/javascript">
+<!--
+
+//-->
+
 $(document).ready(function(){
 
 	/** SIDEBAR FUNCTION **/
@@ -138,17 +143,7 @@ $(document).ready(function(){
 		});
 	});
 	/** END PANEL HEADER BUTTON COLLAPSE **/
-	
-	
-	
-	
-	/** BEGIN DATATABLE EXAMPLE **/
-	if ($('#datatable-example').length > 0){
-		$('#datatable-example').dataTable();
-	}
-	
-	
-	
+
 	
 	/** BEGIN SUMMERNOTE **/
 	if ($('.summernote-lg').length > 0){
@@ -210,15 +205,8 @@ $(document).ready(function(){
 		$("#property-search-wrap").backstretch("assets/img/photo/medium/img-19.jpg");
 	}
 	/** END BACK STRETCH **/
-	
-	
-	/** BEGIN BACK STRETCH **/
-	if ($('#example-datatable').length > 0){
-		$('#example-datatable').dataTable();
-	}
-	/** END BACK STRETCH **/
-   
 
+	
 	/** BEGIN ICHECK **/
 	/** Minimal Skins **/
 	if ($('.i-black').length > 0){
@@ -1309,4 +1297,10 @@ if ($('#realtime-chart-widget').length > 0){
 	});
 	/** END DEMO PANEL **/
 	
+	/** APP ResManage **/
+	
+	
+	/** END ResManage **/
 });
+
+</script>

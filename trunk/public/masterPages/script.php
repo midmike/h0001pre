@@ -51,6 +51,4 @@
 <!-- C3 JS -->
 <script src="assets/plugins/c3-chart/d3.v3.min.js" charset="utf-8"></script>
 <script src="assets/plugins/c3-chart/c3.min.js"></script>
-
-<!-- MAIN APPS JS -->
-<script src="assets/js/apps.js"></script>
+<?php require_once("assets/js/apps.php"); ?>
