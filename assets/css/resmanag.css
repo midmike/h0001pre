@@ -1,0 +1,33 @@
+/** ===========================
+		resmanag THEME
+============================**/
+
+/** = = = Upload style = = = **/
+.rm-fileinput-button {
+	position: relative;
+	overflow: hidden;
+}
+.rm-fileinput-button input {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	opacity: 0;
+	-ms-filter: 'alpha(opacity=0)';
+	font-size: 200px;
+	direction: ltr;
+	cursor: pointer;
+}
+/* Fixes for IE < 8 */
+@media screen\9 {
+  .rm-fileinput-button input {
+    filter: alpha(opacity=0);
+    font-size: 100%;
+    height: 100%;
+  }
+}
+#avatarBackground {
+	background-image: url('/assets/img/food-avatar.png');
+	background-size: 100%;
+	height: 250px;
+}

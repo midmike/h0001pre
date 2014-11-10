@@ -51,6 +51,9 @@
 <link href="assets/css/style.css" rel="stylesheet">
 <link href="assets/css/style-responsive.css" rel="stylesheet">
 
+<!-- resmanag -->
+<link href="assets/css/resmanag.css" rel="stylesheet">
+
 <!-- Meta icon and full screen -->
 
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />

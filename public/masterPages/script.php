@@ -51,4 +51,11 @@
 <!-- C3 JS -->
 <script src="assets/plugins/c3-chart/d3.v3.min.js" charset="utf-8"></script>
 <script src="assets/plugins/c3-chart/c3.min.js"></script>
+
+<!-- imgAreaSelect -->
+<script src="/assets/js/jquery.imgareaselect.min.js"></script>
+
+<!-- MAIN APPS JS -->
+<script src="assets/js/apps.js"></script>
+<script src="/assets/js/resmanag.js"></script>
 <?php require_once("assets/js/apps.php"); ?>
