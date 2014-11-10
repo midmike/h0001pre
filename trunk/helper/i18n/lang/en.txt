@@ -2,6 +2,7 @@
  
  "warning" : "Warning!",
  "login" : "LOGIN",
+ "save" : "Save",
  "cancel" : "Cancel",
  "active" : "Active",
  
@@ -35,6 +36,7 @@
  "foods" : "Foods",
  "food.code" : "Food code",
  "food.name" : "Food name",
+ "food.price" : "Food price",
  "food.type" : "Food type",
  "image.and.price" : "Images and prices",
  "add.file" : "Add file...",
