@@ -1,5 +1,6 @@
 <?php
 
+require ('../database/DatabaseHandler.php');
 /*
  * Helper functions for building a DataTables server-side processing SQL query
  *
@@ -15,8 +16,11 @@
  * @license MIT - http://datatables.net/license_mit
  */
 
+/*
+ *  Modify by Midmike
+ */
 
-class SSP {
+class DataTable {
 	/**
 	 * Create the data output array for the DataTables rows
 	 *
@@ -127,7 +131,7 @@ class SSP {
 	 *    sql_exec() function
 	 *  @return string SQL where clause
 	 */
-	static function filter ( $request, $columns, &$bindings )
+	static function filter ( $request, $columns, &$bindings ,$cache)
 	{
 		$globalSearch = array();
 		$columnSearch = array();
@@ -162,7 +166,6 @@ class SSP {
 				$columnSearch[] = "`".$column['db']."` LIKE ".$binding;
 			}
 		}
-
 		// Combine the filters into a single string
 		$where = '';
 
@@ -177,9 +180,11 @@ class SSP {
 		}
 
 		if ( $where !== '' ) {
-			$where = 'WHERE '.$where;
+			$where = 'WHERE '.$where.' and cache = '.$cache;
+		} else {
+			$where = 'WHERE cache = '.$cache;
 		}
-
+ //echo $where;
 		return $where;
 	}
 
@@ -198,18 +203,17 @@ class SSP {
 	 *  @param  array $columns Column information array
 	 *  @return array          Server-side processing response array
 	 */
-	static function simple ( $request, $sql_details, $table, $primaryKey, $columns )
+	static function simple ( $request, $table, $primaryKey, $columns,$cache=0 )
 	{
 		$bindings = array();
-		$db = self::sql_connect( $sql_details );
 
 		// Build the SQL query string from the request
 		$limit = self::limit( $request, $columns );
 		$order = self::order( $request, $columns );
-		$where = self::filter( $request, $columns, $bindings );
+		$where = self::filter( $request, $columns, $bindings ,$cache);
 
 		// Main query to actually get the data
-		$data = self::sql_exec( $db, $bindings,
+		$data = self::sql_exec( $bindings,
 			"SELECT SQL_CALC_FOUND_ROWS `".implode("`, `", self::pluck($columns, 'db'))."`
 			 FROM `$table`
 			 $where
@@ -218,19 +222,12 @@ class SSP {
 		);
 
 		// Data set length after filtering
-		$resFilterLength = self::sql_exec( $db,
-			"SELECT FOUND_ROWS()"
-		);
+		$resFilterLength = self::sql_exec( "SELECT FOUND_ROWS()");
 		$recordsFiltered = $resFilterLength[0][0];
 
 		// Total data set length
-		$resTotalLength = self::sql_exec( $db,
-			"SELECT COUNT(`{$primaryKey}`)
-			 FROM   `$table`"
-		);
+		$resTotalLength = self::sql_exec( "SELECT COUNT(`{$primaryKey}`) FROM   `$table`");
 		$recordsTotal = $resTotalLength[0][0];
-
-
 		/*
 		 * Output
 		 */
@@ -242,39 +239,6 @@ class SSP {
 		);
 	}
 
-
-	/**
-	 * Connect to the database
-	 *
-	 * @param  array $sql_details SQL server connection details array, with the
-	 *   properties:
-	 *     * host - host name
-	 *     * db   - database name
-	 *     * user - user name
-	 *     * pass - user password
-	 * @return resource Database connection handle
-	 */
-	static function sql_connect ( $sql_details )
-	{
-		try {
-			$db = @new PDO(
-				"mysql:host={$sql_details['host']};dbname={$sql_details['db']}",
-				$sql_details['user'],
-				$sql_details['pass'],
-				array( PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION )
-			);
-		}
-		catch (PDOException $e) {
-			self::fatal(
-				"An error occurred while connecting to the database. ".
-				"The error reported by the server was: ".$e->getMessage()
-			);
-		}
-
-		return $db;
-	}
-
-
 	/**
 	 * Execute an SQL query on the database
 	 *
@@ -285,34 +249,24 @@ class SSP {
 	 * @param  string   $sql SQL query to execute.
 	 * @return array         Result from the query (all rows)
 	 */
-	static function sql_exec ( $db, $bindings, $sql=null )
+	static function sql_exec ( $bindings, $sql=null )
 	{
 		// Argument shifting
 		if ( $sql === null ) {
 			$sql = $bindings;
 		}
 
-		$stmt = $db->prepare( $sql );
+		//$stmt = $db->prepare( $sql );
 		//echo $sql;
-
+		$result = DatabaseHandler::Prepare ( $sql );
 		// Bind parameters
 		if ( is_array( $bindings ) ) {
-			for ( $i=0, $ien=count($bindings) ; $i<$ien ; $i++ ) {
-				$binding = $bindings[$i];
-				$stmt->bindValue( $binding['key'], $binding['val'], $binding['type'] );
-			}
+			$result = DatabaseHandler::GetAllWithBinding($result,$bindings,PDO::FETCH_BOTH);
+		} else {
+			$result = DatabaseHandler::GetAll($result,null,PDO::FETCH_BOTH);
 		}
-
-		// Execute
-		try {
-			$stmt->execute();
-		}
-		catch (PDOException $e) {
-			self::fatal( "An SQL error occurred: ".$e->getMessage() );
-		}
-
 		// Return all
-		return $stmt->fetchAll();
+		return $result;
 	}
 
 
