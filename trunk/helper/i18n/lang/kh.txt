@@ -26,6 +26,8 @@
  "message.user.manageuser.search" : "ស្វែងរក",
  "message.user.manageuser.table.username" : "ឈ្មោះគណនី",
  "message.user.manageuser.table.status" : "មុខងារ",
+ "message.user.manageuser.password" : "Enter password",
+ "message.user.manageuser.confirm.password" : "Confirm Password",
  
  "message.user.titile.login" : "កំណត់ចូលគណនី",
  "message.user.titile.register" : "បង្កើតគណនីថ្មី"

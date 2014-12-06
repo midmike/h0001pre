@@ -44,12 +44,12 @@ class SessionHandlers {
 	}
 	public static function saveSession($objSave, $sessionName) {
 		self::checkSession ();
-		$_SESSION [$sessionName] = serialize ( $objSave );
+		$_SESSION [$sessionName] = Tool::encodeObj($objSave);
 		// echo "Object saved in Session";
 	}
 	public static function getObjSession($sessionName) {
 		self::checkSession ();
-		return unserialize ( $_SESSION [$sessionName] );
+		return Tool::decodeObj( $_SESSION [$sessionName] );
 	}
 }
 ?>

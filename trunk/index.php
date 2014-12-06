@@ -16,9 +16,8 @@ $session = $_SESSION ["locale"];
 if ($session == "kh") {
 	echo "<style> * { font-family: 'Khmer OS System','Khmer OS','Khmer OS Muol','Khmer OS Battambang'; !important }</style>";
 }
-
-$user = new User ();
-if ($user->isLogin ()) {
+$user1 = new User();
+if ($user1->isLogin ()) {
 	require_once ('models/site.php');
 	// HTML HEAD
 	require_once 'public/masterPages/head.php';
@@ -30,12 +29,16 @@ if ($user->isLogin ()) {
 	require_once '/public/masterPages/main.php';
 	if (isset ( $_GET ["menu"] )) {
 		switch ($_GET ["menu"]) {
-			case USER_REGISTER :
-				require_once ('public/register.php');break;
-			case FOOD :
-				require_once 'public/pages/uploadPanel.php';break;
-			case MANAGE_USER :
-				require_once 'public/User/pageManageUser.php';break;
+			case PAGE_USER_REGISTER :
+				require_once ('public/register.php');
+				break;
+			case PAGE_FOOD :
+				require_once 'public/pages/uploadPanel.php';
+				break;
+			case PAGE_MANAGE_USER :
+				Tool::getLoginUserTypeAdmin();
+				require_once 'public/User/pageManageUser.php';
+				break;
 			default :
 				require_once ('public/masterPages/dashboard.php');
 		}

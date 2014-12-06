@@ -44,26 +44,14 @@ class BaseModel {
 		$result = DatabaseHandler::GetRow ( $result, $params );
 		return $result;
 	}
-	public function excuteUpdate($tablename = null, $obj, User $user) {
-		$obj_in_array = $obj;
-		$prepareparams = "";
-		$fieldsname = "";
-		$values = array ();
-		$today = date ( 'Y-m-d' );
-		$id = $obj_in_array ['id'];
-		$obj_in_array ['createdate'] = $today;
-		$obj_in_array ['editedby'] = $user->getId ();
-		$obj_in_array ['cache'] = "0";
-		foreach ( $obj_in_array as $key => $value ) {
-			$prepareparams = $prepareparams . "?,";
-			$fieldsname = $fieldsname . $key . ",";
-			array_push ( $values, $value );
-		}
-		array_push ( $values, $id );
-		$fieldsname = Tool::removeLastCharacter ( $fieldsname );
-		$this->sql = "UPDATE `$tablename` SET($fieldsname) VALUES ($prepareparams) WHERE id=?;";
+	public function excuteUpdate($tablename = null, $sqlData, User $user) {
+		$modifydate = date ( 'Y-m-d' );
+		$editedby = $user->getId (); 
+		$id = $this->id;
+		$this->sql = "UPDATE `$tablename` SET ". $sqlData. ", editedby = '$editedby', modifydate= '$modifydate' "." WHERE id=".$id.";";
 		$result = DatabaseHandler::Prepare ( $this->sql );
-		DatabaseHandler::GetInsert ( $result, $values );
+		echo $this->sql."<br/>";
+		DatabaseHandler::GetInsert ( $result );
 	}
 	public function excuteInsert($tablename = null, $obj, User $user) {
 		$obj_in_array = $obj;
@@ -73,13 +61,9 @@ class BaseModel {
 		$today = date ( 'Y-m-d' );
 		$obj_in_array ['createdate'] = $today;
 		$obj_in_array ['editedby'] = $user->getId ();
-		$obj_in_array ['createdate'] = $today;
+		$obj_in_array ['modifydate'] = $today;
 		$obj_in_array ['cache'] = "0";
-		foreach ( $obj_in_array as $key => $value ) {
-			$prepareparams = $prepareparams . "?,";
-			$fieldsname = $fieldsname . $key . ",";
-			array_push ( $values, $value );
-		}
+		$this->prepareArray($prepareparams,$fieldsname,$values,$obj_in_array);
 		$prepareparams = Tool::removeLastCharacter ( $prepareparams );
 		$fieldsname = Tool::removeLastCharacter ( $fieldsname );
 		$this->sql = "INSERT INTO `$tablename` ($fieldsname) VALUES ($prepareparams);";
@@ -93,6 +77,46 @@ class BaseModel {
 			$allRows . append ( $this );
 		}
 		return $allRows;
+	}
+	public function prepareArray(&$prepareparams,&$fieldsname,&$values,&$obj_in_array) {
+		foreach ( $obj_in_array as $key => $value ) {
+			if ( $key == "dbpassword") {
+				continue;
+			}
+			$prepareparams = $prepareparams . "?,";
+			$fieldsname = $fieldsname . $key . ",";
+			array_push ( $values, $value );
+		}
+	}
+	private function prepareUpdate(&$values,&$obj_in_array) {
+		$setFieldVaule = "";
+		foreach ( $obj_in_array as $key => $value ) {
+			if ( $key == "dbpassword" || $key == "cache" || $key == "createdate") {
+				continue;
+			}
+			if ($key == "id") {
+				$id = $value;
+				continue;
+			}
+			$setFieldVaule = $setFieldVaule.$key . " = ".$value.", ";
+			//array_push ( $values, $value );
+		}
+		//array_push ( $values, $id );
+		$setFieldVaule = Tool::removeLastCharacter ( $setFieldVaule );
+		$setFieldVaule = Tool::removeLastCharacter ( $setFieldVaule );
+		return $setFieldVaule;
+	}
+	public function executeReturn() {
+		$result = DatabaseHandler::Prepare ( $this->sql );
+		$result = DatabaseHandler::GetRow ( $result );
+		return $result;
+	}
+	public function executeNonReturn() {
+		$result = DatabaseHandler::Prepare ( $this->sql );
+		DatabaseHandler::GetInsert ( $result );
+	}
+	public function TestSql($sql) {
+		$this->sql=$sql;
 	}
 }
 ?>

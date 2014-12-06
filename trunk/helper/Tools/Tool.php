@@ -55,12 +55,28 @@ class Tool {
 		}
 	}
 	
-	public static function printSelectOption($name, $arrayValue = null, $arrayText = null, $class = null) {
+	public static function printSelectOption($name, $arrayValue = null, $arrayText = null, $selectedValue = null, $class = null) {
 		echo "<select class='form-control $class' name='$name' >";
 		for($i = 0; $i < sizeof ( $arrayValue ); $i ++) {
-			echo "<option value='$arrayValue[$i]'>$arrayText[$i]</option>";
+			  echo "<option value='$arrayValue[$i]'";
+			if (strcmp ( $arrayValue[$i] , $selectedValue ) == 0) {
+				echo " selected";
+			}
+			echo ">$arrayText[$i]</option>";  
 		}
 		echo "</select>";
+	}
+	public static function isEmpty($value) {
+		if ($value == null || $value == "" || $value == 0 ) {
+			return true;
+		}
+		return false;
+	}
+	public static function encodeObj($obj) {
+		return base64_encode( serialize( $obj ) );
+	}
+	public static function decodeObj($obj) {
+		return unserialize( base64_decode( $obj ) );
 	}
 	/* 
 	public static function getLoginUser() {

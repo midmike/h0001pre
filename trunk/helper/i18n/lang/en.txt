@@ -23,6 +23,7 @@
  "message.user.manageuser.button.new" : "New",
  "message.user.manageuser.button.edit" : "Edit",
  "message.user.manageuser.button.show" : "Show Delete",
+ "message.user.manageuser.button.delete" : "Delete", 
  "message.user.manageuser.lengthmenu.0" : "Display",
  "message.user.manageuser.lengthmenu.1" : "records per page",
  "message.user.manageuser.info.0" : "Showing page",
@@ -31,8 +32,15 @@
  "message.user.manageuser.search" : "Search",
  "message.user.manageuser.table.username" : "User Name",
  "message.user.manageuser.table.status" : "Status",
+ "message.user.manageuser.password" : "Enter password",
+ "message.user.manageuser.confirm.password" : "Confirm Password",
+ "message.user.manageuser.datanotempty" : "The field is required and cannot be empty",
+ "message.user.manageuser.mustpasswordcomnfirm" : "",
  
-  
+ 
+ "user.status.administrator" : "Administrator",
+ "user.status.user" : "User",
+ 
  "foods" : "Foods",
  "food.code" : "Food code",
  "food.name" : "Food name",
