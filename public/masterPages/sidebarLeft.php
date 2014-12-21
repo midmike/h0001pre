@@ -1,5 +1,6 @@
 <div class="sidebar-left sidebar-nicescroller">
 	<ul class="sidebar-menu">
+		<li><a href="?menu=2"><i class="fa fa-dashboard icon-sidebar"></i>Food</a></li>
 		<li><a href="index.html"><i class="fa fa-dashboard icon-sidebar"></i>Dashboard</a></li>
 		<li><a href="#fakelink"> <i class="fa fa-desktop icon-sidebar"></i> <i
 				class="fa fa-angle-right chevron-icon-sidebar"></i> Layout template

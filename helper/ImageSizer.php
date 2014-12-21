@@ -64,15 +64,10 @@ class ImageSizer {
 		$this->resize($width,$height);
 	}
 	
-	function resize($width,$height) {
-		$newImage = imagecreatetruecolor($width, $height);
-		imagecopyresampled($newImage, $this->image, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
+	function resize($x, $y, $s, $d) {
+		$newImage = imagecreatetruecolor($s, $s);
+		imagecopyresampled($newImage, $this->image, 0, 0, $x, $y, $s, $s, $d, $d);
 		$this->image = $newImage;
-	}
-	
-	function crop($x, $y, $w, $h) {
-		$size = array('x' => $x, 'y' => $y, 'width' => $w, 'height' => $h);
-		$this->image = imagecrop($this->image, $size);
 	}
 
 }
