@@ -3,17 +3,22 @@ function _(el){
 	return document.getElementById(el);
 }
 
+$(document).ready(function(){
+	$('#imageUpload').change(uploadFile);
+});
+
 //========================== Upload file ========================== //
 function uploadFile(){
-	var file = _("file").files[0];
+	var file = _("imageUpload").files[0];
 	var formdata = new FormData();
 	formdata.append("file", file);
+	_("progress-bar").setAttribute("style", "width: 0%;");
 	var ajax = new XMLHttpRequest();
 	ajax.upload.addEventListener("progress", progressHandler, false);
 	ajax.addEventListener("load", completeHandler, false);
 	ajax.addEventListener("error", errorHandler, false);
 	ajax.addEventListener("abort", abortHandler, false);
-	ajax.open("POST", "/helper/file_upload_parser.php");
+	ajax.open("POST", "controls/FoodControl.php/?uploadImage");
 	ajax.send(formdata);
 }
 function progressHandler(event){
@@ -22,14 +27,18 @@ function progressHandler(event){
     _("progress-bar").innerHTML = Math.round(percent) + " % uploaded... please wait";
 }
 function completeHandler(event){
+	//_("progress-bar").innerHTML = event.target.responseText;
 	var response = JSON.parse(event.target.responseText);
-    _("progress-bar").innerHTML = response.message;
-    _("progress-bar").setAttribute("style", "width: 100%;");
-    _("img-thumbnail").setAttribute("src", response.image);
-    _("img-thumbnail").setAttribute("alt", response.alt);
-	_("img-thumbnail").setAttribute("class", "img-thumbnail");
-	_("avatarBackground").style.backgroundImage = "none";
-	_("avatarBackground").style.height = "auto";
+	if (response.error == true) {
+		_("progress-bar").innerHTML = response.message;
+	} else {
+		_("progress-bar").innerHTML = response.message;
+		_("progress-bar").setAttribute("style", "width: 100%;");
+		_("img-thumbnail").setAttribute("src", response.image);
+		_("img-thumbnail").setAttribute("alt", response.alt);
+		_("avatarBackground").style.display = "none";
+//		_("avatarBackground").style.height = "auto";
+	}
 }
 function errorHandler(event){
     _("progress-bar").innerHTML = "Upload Failed";
@@ -53,7 +62,7 @@ function saveImage () {
 	data["imageW"] = _("img-thumbnail").clientWidth;
 	data["imageH"] = _("img-thumbnail").clientHeight;
 	$.ajax({
-		url: "/helper/ImageSaver.php",
+		url: "controls/FoodControl.php/?create",
 		type: "POST",
 		data: {"foodData": JSON.stringify(data)},
 		success: onSaveSuccess
@@ -61,10 +70,32 @@ function saveImage () {
 }
 function onSaveSuccess (data) {
 	var result = JSON.parse(data);
-	if(result.validate == false) {
-		alert(result.validate);
+	var error = false;
+	
+	if (result.foodCode) {
+		$('#foodCode').parent().addClass("has-error");
 	} else {
-		alert(result.validate);
+		$('#foodCode').parent().removeClass("has-error");
+	}
+	if (result.foodName) {
+		$('#foodName').parent().addClass("has-error");
+	} else {
+		$('#foodName').parent().removeClass("has-error");
+	}
+	if (result.foodPrice) {
+		$('#foodPrice').parent().addClass("has-error");
+	} else {
+		$('#foodPrice').parent().removeClass("has-error");
+	}
+	if (result.foodType) {
+		$('#foodType').parent().addClass("has-error");
+	} else {
+		$('#foodType').parent().removeClass("has-error");
+	}
+	if (result.image) {
+		$('#txtBrowse').parent().addClass("has-error");
+	} else {
+		$('#txtBrowse').parent().removeClass("has-error");
 	}
 }
 
@@ -74,8 +105,8 @@ function onSaveSuccess (data) {
 var crop = $('#img-thumbnail').imgAreaSelect({
 		handles: true,
 		aspectRatio: '1:1',
-		minWidth: 250,
-		minHeight: 250,
+		minWidth: 100,
+		minHeight: 100,
 		onSelectEnd: onCrop
 	});
 function onCrop (img, selection) {
