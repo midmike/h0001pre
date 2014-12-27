@@ -95,15 +95,14 @@ class User extends BaseModel {
 			}
 		}
 		$this->setSQL ( 'select * from tbuser ' . $where );
-		echo  'select * from tbuser ' . $where;
 		$result = $this->excuteRead ( $params );
 		$this->prepare ( $result );
 		return $result;
 	}
 	public function readDatabaseAll($where = null, $params = null) {
 		$this->setSQL ( 'select * from tbuser ' . $where );
-		$result = $this->excuteRead ( null, $params );
-		return $this->prepareAll ( $result );
+		$result = $this->excuteRead ();
+		return $this->prepareAll ( $result , "User" );
 	}
 	public function insertDatabase($user) {
 		$options = [ 
@@ -178,6 +177,7 @@ class User extends BaseModel {
 		// echo "islogin:false<br>";
 		return false;
 	}
+	//Every Model need to have this method because prepareAll Method depand on this method
 	public function prepare($result) {
 		$this->id = $result ['id'];
 		$this->name = $result ['name'];
