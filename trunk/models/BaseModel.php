@@ -1,5 +1,9 @@
 <?php
 class BaseModel {
+	//cache status
+	const CACHE_HIDE = "1";
+	const CACHE_SHOW = "0";
+	
 	private $sql = "";
 	protected $id;
 	protected $createdate;
@@ -41,7 +45,7 @@ class BaseModel {
 	}
 	public function excuteRead($params = null) {
 		$result = DatabaseHandler::Prepare ( $this->sql );
-		$result = DatabaseHandler::GetRow ( $result, $params );
+		$result = DatabaseHandler::GetAll ( $result, $params );
 		return $result;
 	}
 	public function excuteUpdate($tablename = null, $sqlData, User $user) {
@@ -62,7 +66,7 @@ class BaseModel {
 		$obj_in_array ['createdate'] = $today;
 		$obj_in_array ['editedby'] = $user->getId ();
 		$obj_in_array ['modifydate'] = $today;
-		$obj_in_array ['cache'] = "0";
+		$obj_in_array ['cache'] = self::CACHE_SHOW;
 		$this->prepareArray($prepareparams,$fieldsname,$values,$obj_in_array);
 		$prepareparams = Tool::removeLastCharacter ( $prepareparams );
 		$fieldsname = Tool::removeLastCharacter ( $fieldsname );
@@ -70,12 +74,13 @@ class BaseModel {
 		$result = DatabaseHandler::Prepare ( $this->sql );
 		DatabaseHandler::GetInsert ( $result, $values );
 	}
-	public function prepareAll($result, $obj) {
+	public function prepareAll($result, $className) {
 		$allRows = new ArrayObject ();
-		while ( $result ) {
-			$this->prepare ( $result );
-			$allRows . append ( $this );
-		}
+		foreach ($result as $value ) {
+			$obj = new $className();
+			$obj->prepare ( $value );
+			$allRows->append ( $obj );
+		} 
 		return $allRows;
 	}
 	public function prepareArray(&$prepareparams,&$fieldsname,&$values,&$obj_in_array) {
