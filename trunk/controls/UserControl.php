@@ -41,13 +41,6 @@ class UserControl {
 		SessionHandlers::saveSession ( $user, 'log_user' );
 		header ( "Location:../" );
 		exit ();
-		/*
-		 * if ($user->isLogin()) {
-		 * //header ( "Location:../" );
-		 * } else {
-		 * //header("Location:../?fail");
-		 * }
-		 */
 	}
 	public Static function Logout() {
 		SessionHandlers::destroyAllSession (); /*

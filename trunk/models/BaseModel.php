@@ -45,6 +45,11 @@ class BaseModel {
 	}
 	public function excuteRead($params = null) {
 		$result = DatabaseHandler::Prepare ( $this->sql );
+		$result = DatabaseHandler::GetRow ( $result, $params );
+		return $result;
+	}
+	public function excuteReadAll($params = null) {
+		$result = DatabaseHandler::Prepare ( $this->sql );
 		$result = DatabaseHandler::GetAll ( $result, $params );
 		return $result;
 	}
