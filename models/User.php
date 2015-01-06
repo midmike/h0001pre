@@ -101,7 +101,7 @@ class User extends BaseModel {
 	}
 	public function readDatabaseAll($where = null, $params = null) {
 		$this->setSQL ( 'select * from tbuser ' . $where );
-		$result = $this->excuteRead ();
+		$result = $this->excuteReadAll ();
 		return $this->prepareAll ( $result , "User" );
 	}
 	public function insertDatabase($user) {
