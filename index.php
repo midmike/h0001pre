@@ -1,5 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+<script type="text/javascript">
+function checkMobileApp(){
+	var a=document.getElementsByTagName("a");
+	for(var i=0;i<a.length;i++)
+	{
+	    a[i].onclick=function()
+	    {
+	        window.location=this.getAttribute("href");
+	        return false
+	    }
+	}
+}
+</script>
 <?php
 require_once ('conf/define.php');
 require_once ('helper/auto_include.php');
@@ -30,7 +43,7 @@ if ($user1->isLogin ()) {
 	// HTML HEAD
 	require_once 'public/masterPages/head.php';
 	// BODY
-	echo '<body class="tooltips">';
+	echo '<body class="tooltips" onload="checkMobileApp()">';
 	// ===================
 	// MAIN
 	// ===================
@@ -68,4 +81,6 @@ if ($user1->isLogin ()) {
 }
 exit ();
 ?>
+
+
 </html>
