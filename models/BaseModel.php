@@ -45,6 +45,7 @@ class BaseModel {
 	}
 	public function excuteRead($params = null) {
 		$result = DatabaseHandler::Prepare ( $this->sql );
+		//echo $this->sql."<br/>";
 		$result = DatabaseHandler::GetRow ( $result, $params );
 		return $result;
 	}
@@ -76,6 +77,7 @@ class BaseModel {
 		$prepareparams = Tool::removeLastCharacter ( $prepareparams );
 		$fieldsname = Tool::removeLastCharacter ( $fieldsname );
 		$this->sql = "INSERT INTO `$tablename` ($fieldsname) VALUES ($prepareparams);";
+		//echo $this->sql;
 		$result = DatabaseHandler::Prepare ( $this->sql );
 		DatabaseHandler::GetInsert ( $result, $values );
 	}
@@ -88,9 +90,16 @@ class BaseModel {
 		} 
 		return $allRows;
 	}
+	public function prepareBase($result) {
+		$this->id = $result ['id'];
+		$this->cache = $result ['cache'];
+		$this->modifydate = $result ['modifydate'];
+		$this->createdate = $result ['createdate'];
+		$this->editedby = $result ['editedby'];
+	}
 	public function prepareArray(&$prepareparams,&$fieldsname,&$values,&$obj_in_array) {
 		foreach ( $obj_in_array as $key => $value ) {
-			if ( $key == "dbpassword") {
+			if ( $key == "dbpassword" || $key =="id") {
 				continue;
 			}
 			$prepareparams = $prepareparams . "?,";

@@ -191,6 +191,9 @@ class User extends BaseModel {
 		$this->createdate = $result ['createdate'];
 		$this->editedby = $result ['editedby'];
 	}
+	public function getSession() {
+		SessionHandlers::getObjSession(self::SESSION_USER);
+	}
 	public function dataTable($cache) {
 		/*
 		 * DataTables example server-side processing script.
