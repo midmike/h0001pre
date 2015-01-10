@@ -67,9 +67,21 @@
 		<!-- Begin Button -->
 		<div class="the-box rounded">
 			<div class="the-box rounded form-group">
-				<a href="javascript:void(0);open('<?php echo CREATE?>');" class="btn btn-success btn-rounded-lg" ><i class="fa fa-plus"></i><?php i18n::getLabel("message.user.manageuser.button.new");?></a>
-				<a href="javascript:void(0);open('<?php echo EDIT?>');" class="btn btn-success btn-rounded-lg" ><i class="fa fa-pencil"></i><?php i18n::getLabel("message.user.manageuser.button.edit");?></a>
-				<a href="javascript:void(0);open('<?php echo SHOWHIDE?>');" class="btn btn-success btn-rounded-lg" ><i class="fa fa-eye"></i><?php i18n::getLabel("message.user.manageuser.button.show");?></a>
+				<div class="col-xs-12 col-md-2">
+					<a href="javascript:void(0);open('<?php echo CREATE?>');" class="btn btn-success btn-rounded-lg col-md-12 col-xs-12">
+						<i class="fa fa-plus"></i><?php i18n::getLabel("message.user.manageuser.button.new");?>
+					</a>
+				</div>
+				<div class="col-xs-12 col-md-2">
+					<a href="javascript:void(0);open('<?php echo EDIT?>');" class="btn btn-success btn-rounded-lg col-md-12 col-xs-12">
+						<i class="fa fa-pencil"></i><?php i18n::getLabel("message.user.manageuser.button.edit");?>
+					</a>
+				</div>
+				<div class="col-xs-12 col-md-3">
+					<a href="javascript:void(0);open('<?php echo SHOWHIDE?>');" class="btn btn-success btn-rounded-lg col-md-12 col-xs-12">
+						<i class="fa fa-eye"></i><?php i18n::getLabel("message.user.manageuser.button.show");?>
+					</a>
+				</div>
 				<a href="javascript:void(0);open('<?php echo REFRESH?>');" class="btn" ><i class="fa fa-refresh"></i></a>
 			</div>
 		
