@@ -33,6 +33,14 @@ class Tool {
 			die ();
 		}
 	}
+	public static function isLoginUserTypeAdmin($log_user) {
+		if ($log_user->getStatus () == $log_user::STATUS_ADMIN) {
+			return true;
+		} else {
+			self::pageError(User::LOGIN_FAIL);
+			die ();
+		}
+	}
 	
 	public static function pageError($typeError=null) {
 		//class directories

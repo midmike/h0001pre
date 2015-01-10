@@ -4,21 +4,29 @@
 require_once ('conf/define.php');
 require_once ('helper/auto_include.php');
 
+$site = new Site();
+if(!$site->isSetSession()) {
+	$site->setlanguage("en");
+	$site->setSession();
+} else {
+	$site = $site->getSession();
+}
 // check language to show
 SessionHandlers::checkSession ();
-if (empty ( $_SESSION ["locale"] )) {
-	$_SESSION ["locale"] = "en";
-}
-if (! empty ( $_GET ["lang"] )) {
-	$_SESSION ["locale"] = $_GET ["lang"];
-}
-$session = $_SESSION ["locale"];
-if ($session == "kh") {
+$_SESSION ["locale"] = $site->getlanguage();
+if ($_SESSION ["locale"] == "kh") {
 	echo "<style> * { font-family: 'Khmer OS System','Khmer OS','Khmer OS Muol','Khmer OS Battambang'; !important }</style>";
-}
+} 
 $user1 = new User();
 if ($user1->isLogin ()) {
-	require_once ('models/site.php');
+	$log_user = Tool::getLoginUser();
+	if (!$site->isExist($log_user)) {
+		$site->setrefUser($log_user->getId());
+		$site->insertDatabase($log_user);
+	} else {
+		$site->setrefUser($log_user->getId());
+		$site->setSessionByUser();
+	}
 	// HTML HEAD
 	require_once 'public/masterPages/head.php';
 	// BODY
@@ -36,8 +44,12 @@ if ($user1->isLogin ()) {
 				require_once 'public/pages/uploadPanel.php';
 				break;
 			case PAGE_MANAGE_USER :
-				Tool::getLoginUserTypeAdmin();
+				Tool::isLoginUserTypeAdmin($log_user);
 				require_once 'public/User/pageManageUser.php';
+				break;
+			case PAGE_SITE_CONFIGURE :
+				Tool::isLoginUserTypeAdmin($log_user);
+				require_once 'public/site/configureSite.php';
 				break;
 			default :
 				require_once ('public/masterPages/dashboard.php');

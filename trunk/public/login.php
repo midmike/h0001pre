@@ -86,10 +86,10 @@ if (! isset ( $_POST [User::LOGIN_EVENT] )) {
 			</div>
 		</form>
 		<p class="text-center">
-			<strong><a href="?lang=kh" target="_self">change to khmer</a></strong>
+			<strong><a href="controls/site.php?switchLang=kh" target="_self">change to khmer</a></strong>
 		</p>
 		<p class="text-center">
-			<strong><a href="?lang=en" target="_self">change to english</a></strong>
+			<strong><a href="controls/site.php?switchLang=en" target="_self">change to english</a></strong>
 		</p>
 	</div>
 	<!-- /.login-wrapper -->
