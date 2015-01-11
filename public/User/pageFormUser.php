@@ -132,7 +132,7 @@
 					} else {
 						echo "Create";
 					}?></button>
-					<a class="btn btn-warning" onclick="window.history.back()">Back</a>
+					<a class="btn btn-warning" onclick="window.history.back()" id="back">Back</a>
 				</div>
 			</div>
 		</form>

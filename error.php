@@ -38,7 +38,7 @@
 		</div>
 		<div class="login-wrapper">
 			<h1 class="error-number"></h1>
-			<p class="text-center"><strong><a href="javascript:window.history.back();">Back to Previous Page</a></strong></p>
+			<p class="text-center"><strong><a href="javascript:window.history.back();" id="back">Back to Previous Page</a></strong></p>
 		</div><!-- /.login-wrapper -->
 		<!--
 		===========================================================
