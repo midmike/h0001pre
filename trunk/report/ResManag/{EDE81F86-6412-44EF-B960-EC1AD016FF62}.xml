@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<configuration date="2015/01/18" author="e.World Technology Ltd.">
+<project id="{EDE81F86-6412-44EF-B960-EC1AD016FF62}" file="C:\Users\Lay\Documents\PHPReportMaker\Projects\ResManag.prp" name="ResManag" product="PHPReportMaker" version="7.0" datetime="2015/01/18 11:34:51" languagefolder="phprptlang" userlevel="0,&quot;Default&quot;,0">
+<table id="tbfood" name="tbfood" caption="tbfood" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="tborder" name="tborder" caption="tborder" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="tborderdetail" name="tborderdetail" caption="tborderdetail" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="tbreturnorder" name="tbreturnorder" caption="tbreturnorder" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="tbsellfoodcount" name="tbsellfoodcount" caption="tbsellfoodcount" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="tbsite" name="tbsite" caption="tbsite" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="tbtable" name="tbtable" caption="tbtable" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="tbuser" name="tbuser" caption="tbuser" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="tbuseronline" name="tbuseronline" caption="tbuseronline" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+<table id="user_report" name="user report" caption="user report" userlevel="0,&quot;Default&quot;,0" priv="1"/>
+</project></configuration>

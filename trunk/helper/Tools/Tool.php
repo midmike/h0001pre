@@ -86,6 +86,12 @@ class Tool {
 	public static function decodeObj($obj) {
 		return unserialize( base64_decode( $obj ) );
 	}
+	public static function getCurrentUrl() {
+		return "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	}
+	public static function getCurrentHost() {
+		return 'http://'.$_SERVER['HTTP_HOST'];
+	}
 	/* 
 	public static function getLoginUser() {
 		if (isset ( $_COOKIE ['user'] )) {
