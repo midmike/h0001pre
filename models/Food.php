@@ -5,20 +5,13 @@ class Food extends BaseModel {
 
 	private static $table = "tbfood";
 	
-	private $code;
 	private $name;
 	private $price;
 	private $status;
 	private $image;
 	private $thumbnail;
-	private $foodTypeId;
+	private $reffoodtype;
 	
-	public function getCode () {
-		return $this->code;
-	}
-	public function setCode ($value) {
-		$this->code = $value;
-	}
 	public function getName () {
 		return $this->name;
 	}
@@ -50,10 +43,10 @@ class Food extends BaseModel {
 		$this->thumbnail = $value;
 	}
 	public function getFoodTypeId () {
-		return $this->foodTypeId;
+		return $this->reffoodtype;
 	}
 	public function setFoodTypeId ($value) {
-		$this->foodTypeId = $value;
+		$this->reffoodtype = $value;
 	}
 	
 	public function insertDatabase ($user) {

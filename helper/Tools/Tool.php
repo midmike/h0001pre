@@ -92,6 +92,9 @@ class Tool {
 	public static function getCurrentHost() {
 		return 'http://'.$_SERVER['HTTP_HOST'];
 	}
+	public static function isNotAndNotEmpty($object,$fieldname) {
+		return isset($object[$fieldname]) && !empty($object[$fieldname]);
+	}
 	/* 
 	public static function getLoginUser() {
 		if (isset ( $_COOKIE ['user'] )) {

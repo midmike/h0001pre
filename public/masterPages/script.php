@@ -56,6 +56,5 @@
 <script src="assets/js/jquery.imgareaselect.min.js"></script>
 
 <!-- MAIN APPS JS -->
-<script src="assets/js/apps.js"></script>
 <script src="assets/js/resmanag.js"></script>
 <?php require_once("assets/js/apps.php"); ?>

@@ -11,10 +11,6 @@
 			<div class="col-md-5">
 				<form role="form" enctype="multipart/form-data" method="post">
 					<div class="form-group">
-						<label for="foodCode" class="control-label"><?php i18n::getLabel("food.code")?></label>
-						<input type="text" class="form-control" placeholder="" id="foodCode">
-					</div>
-					<div class="form-group">
 						<label for="foodName" class="control-label"><?php i18n::getLabel("food.name")?></label>
 						<input type="text" class="form-control" placeholder="" id="foodName">
 					</div>
@@ -53,7 +49,7 @@
 					<div class="progress">
 						<div id="progress-bar" class="progress-bar" role="progressbar"
 							aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
-							style="width: 0%;">0%</div>
+							style="width: 0%;"></div>
 					</div>
 					<input type="hidden" id="cropX">
 					<input type="hidden" id="cropY">
