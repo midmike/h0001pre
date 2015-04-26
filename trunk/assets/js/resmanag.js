@@ -48,7 +48,6 @@ function abortHandler(event){
 }
 function saveImage () {
 	var data = {};
-	data["foodCode"] = _("foodCode").value;
 	data["foodName"] = _("foodName").value;
 	data["foodPrice"] = _("foodPrice").value;
 	data["foodType"] = _("foodType").options[_("foodType").selectedIndex].value;

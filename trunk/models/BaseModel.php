@@ -78,6 +78,7 @@ class BaseModel {
 		$fieldsname = Tool::removeLastCharacter ( $fieldsname );
 		$this->sql = "INSERT INTO `$tablename` ($fieldsname) VALUES ($prepareparams);";
 		//echo $this->sql;
+		//print_r($values);
 		$result = DatabaseHandler::Prepare ( $this->sql );
 		DatabaseHandler::GetInsert ( $result, $values );
 	}

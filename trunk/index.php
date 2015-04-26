@@ -49,7 +49,7 @@ if ($user1->isLogin ()) {
 	// ===================
 	// MAIN
 	// ===================
-	require_once '/public/masterPages/main.php';
+	require_once 'public/masterPages/main.php';
 	if (isset ( $_GET ["menu"] )) {
 		switch ($_GET ["menu"]) {
 			case PAGE_USER_REGISTER :
@@ -60,7 +60,7 @@ if ($user1->isLogin ()) {
 				break;
 			case PAGE_MANAGE_USER :
 				Tool::isLoginUserTypeAdmin($log_user);
-				require_once 'public/User/pageManageUser.php';
+				require_once 'public/pages/User/pageManageUser.php';
 				break;
 			case PAGE_SITE_CONFIGURE :
 				Tool::isLoginUserTypeAdmin($log_user);
@@ -75,7 +75,7 @@ if ($user1->isLogin ()) {
 	
 	require_once 'public/masterPages/footer.php';
 	// SCRIPT
-	require_once '/public/masterPages/script.php';
+	require_once 'public/masterPages/script.php';
 	// END BODY
 	echo '</body>';
 } else {

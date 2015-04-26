@@ -16,6 +16,7 @@ class FoodControl {
 
 	private static $tmpDir = "../assets/upload/tmp/";
 	private static $thumDir = "../assets/upload/thumbnail/";
+	private static $imageDir = "../assets/upload/images/";
 	
 	public static function uploadImage() {
 		$allowFile = array("image/jpeg", "image/png", "image/gif");
@@ -52,15 +53,9 @@ class FoodControl {
 		$result = array();
 		
 		$validate = true;
-		$result["foodCode"] = false;
 		$result["foodName"] = false;
 		$result["foodPrice"] = false;
 		$result["foodType"] = false;
-		
-		if (!isset($foodData["foodCode"]) || empty($foodData["foodCode"])) {
-			$result['foodCode'] = true;
-			$validate = false;
-		}
 		if (!isset($foodData["foodName"]) || empty($foodData["foodName"])) {
 			$result['foodName'] = true;
 			$validate = false;
@@ -91,14 +86,18 @@ class FoodControl {
 		$sizer->load(self::$tmpDir . $foodData["image"]);
 		$width = $sizer->getWidth();
 		$height = $sizer->getHeight();
+		$sizer->save(self::$imageDir . $foodData["image"]);
 		$x = $width * ($foodData["cropX"] / $foodData["imageW"]);
+		//echo $width." ".$foodData["cropX"]." ".$x."<br>";
 		$y = $height * ($foodData["cropY"] / $foodData["imageH"]);
+		//echo $height." ".$foodData["cropY"]." ".$y."<br>";
 		$d = $width * ($foodData["cropW"] / $foodData["imageW"]);
-		$sizer->resize($x, $y, $s, $d);
-		$sizer->save(self::$thumDir . $foodData["image"]);
-		
+		//echo $foodData["cropW"]." ".$d;
+		if(intval($d) != 0) {
+			$sizer->resize($x, $y, $s, $d);
+			$sizer->save(self::$thumDir . $foodData["image"]);
+		}
 		$food = new Food();
-		$food->setCode($foodData["foodCode"]);
 		$food->setName($foodData["foodName"]);
 		$food->setPrice($foodData["foodPrice"]);
 		$food->setFoodTypeId(1);

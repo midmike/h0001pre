@@ -1,49 +1,17 @@
 <script src="assets/js/jquery.min.js"></script>
+<?php require_once 'assets/js/datatable.php';?>
 <script type="text/javascript">
 	$(document).ready(function(){
-		datatable();
+        <?php
+        	$cache = BaseModel::CACHE_SHOW;
+        	if (Tool::isNotAndNotEmpty($_GET,"cache")) {
+        		$cache = $_GET ["cache"];
+        	} else {
+        		$cache = 0;
+        	}
+        ?>
+		datatable("helper/datatable/ManageUserDataTable.php?cache=<?php echo $cache;?>");
 	});
-	function datatable() {
-		if ($('#datatable-user').length > 0){
-			$('#datatable-user').DataTable( {
-				"bAutoWidth": false,
-				"language": {
-		            "lengthMenu": "<?php i18n::getLabel("message.user.manageuser.lengthmenu.0");?> _MENU_ <?php i18n::getLabel("message.user.manageuser.lengthmenu.1");?>",
-		            "zeroRecords": "<?php i18n::getLabel("message.user.manageuser.zerorecords");?>",
-		            "info": "<?php i18n::getLabel("message.user.manageuser.info.0");?> _PAGE_ <?php i18n::getLabel("message.user.manageuser.info.1");?> _PAGES_",
-		            "infoEmpty": "<?php i18n::getLabel("message.user.manageuser.zerorecords");?>",
-		            "infoFiltered": "(filtered from _MAX_ total records)",
-		            "search": "<?php i18n::getLabel("message.user.manageuser.search");?>",
-		            "paginate": {
-		                "first": "<<",
-		                "last": ">>",
-		                "next" : ">",
-		                "previous" : "<"
-		            }
-		        },
-				"processing": true,
-				"columnDefs": [ {
-		            "searchable": false,
-		            "orderable": false,
-		            "targets": 0
-		        } ],
-		        "order": [[ 1, 'asc' ]],
-		        "serverSide": true,
-		        "ajax": {
-			        <?php
-			        	$cache = User::CACHE_SHOW;
-			        	if (isset ( $_GET ["cache"] ) && ! empty ( $_GET ["cache"] )) {
-			        		$cache = $_GET ["cache"];
-			        	}
-			        ?>
-			        "url" : "helper/datatable/ManageUserDataTable.php?cache=<?php echo $cache;?>",
-			        "type" : "POST"
-		        },
-		        "ordering": true,
-                "bScrollCollapse": true,
-			});
-		}
-	}
 	function getCache() {
 		var myform = document.getElementById ('user_datatable_form');
 		return myform['cache_val'].value;
@@ -56,15 +24,6 @@
 		} else if(formname === '<?php echo SHOWHIDE?>') {
 			myform.action = myform.action + "&cache=<?php echo User::CACHE_HIDE?>";
 		}
-		myform.submit();
-	}
-	function exportFile(exportType) {
-		var myform = document.getElementById ('user_datatable_form');
-		var table = $('#datatable-user').DataTable();
-		var pageno = table.page();
-		var pageLen = table.page.len();
-		myform.action = "<?php echo Tool::getCurrentHost()?>/report/user_reportsmry.php?pageno="
-			 + pageno + "&grpperpage=" + pageLen + "&order=name&ordertype=ASC&export=" + exportType;
 		myform.submit();
 	}
 </script>
@@ -92,21 +51,6 @@
 					<a href="javascript:void(0);open('<?php echo SHOWHIDE?>');"
 						class="btn btn-success btn-rounded-lg col-md-12 col-xs-12"> <i
 						class="fa fa-eye"></i><?php i18n::getLabel("message.user.manageuser.button.show");?>
-					</a>
-				</div>
-				<div class="col-xs-12 col-md-2">
-					<a href="javascript:void(0);exportFile('<?php echo EXCEL?>');"
-						class="btn btn-primary btn-rounded col-md-3 col-xs-12"> <i
-						class="fa fa-file-excel-o"></i>
-					</a> <a href="javascript:void(0);exportFile('<?php echo WORD?>');"
-						class="btn btn-info btn-rounded col-md-3 col-xs-12"> <i
-						class="fa fa-file-word-o"></i>
-					</a> <a href="javascript:void(0);exportFile('<?php echo PDF?>');"
-						class="btn btn-danger btn-rounded col-md-3 col-xs-12"> <i
-						class="fa fa-file-pdf-o"></i>
-					</a> <a href="javascript:void(0);exportFile('<?php echo HTML?>');"
-						class="btn btn-default btn-rounded col-md-3 col-xs-12"> <i
-						class="fa fa-html5"></i>
 					</a>
 				</div>
 				<a href="javascript:void(0);open('<?php echo REFRESH?>');"

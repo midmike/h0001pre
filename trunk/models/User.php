@@ -16,10 +16,6 @@ class User extends BaseModel {
 	//user type status
 	const STATUS_ADMIN = "1";
 	const STATUS_USER = "2";
-	//cache status
-	const CACHE_HIDE = "1";
-	const CACHE_SHOW = "0";
-	
 	private $name;
 	private $status;
 	private $address;
