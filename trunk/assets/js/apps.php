@@ -1303,4 +1303,20 @@ if ($('#realtime-chart-widget').length > 0){
 	/** END ResManage **/
 });
 
+function open(formname,page,url) {
+	var myform = document.getElementById (formname);
+	myform.action = url+"?<?php echo PAGE;?>=" + page;
+	if(page === '<?php echo EDIT?>') {
+		myform.action = myform.action + "&id=" + $('input[name="id"]:checked').val();
+	} else if(page === '<?php echo SHOWHIDE?>') {
+		myform.action = myform.action + "&cache=<?php echo User::CACHE_HIDE?>";
+	} 
+	myform.submit();
+}
+
+function getCache(formname,cachename) {
+	var myform = document.getElementById (formname);
+	return myform[cachename].value;
+}
+
 </script>

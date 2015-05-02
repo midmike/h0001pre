@@ -12,20 +12,6 @@
         ?>
 		datatable("helper/datatable/ManageUserDataTable.php?cache=<?php echo $cache;?>");
 	});
-	function getCache() {
-		var myform = document.getElementById ('user_datatable_form');
-		return myform['cache_val'].value;
-	}
-	function open(formname) {
-		var myform = document.getElementById ('user_datatable_form');
-		myform.action = "controls/UserControl.php?<?php echo PAGE;?>=" + formname;
-		if(formname === '<?php echo EDIT?>') {
-			myform.action = myform.action + "&id=" + $('input[name="id"]:checked').val();
-		} else if(formname === '<?php echo SHOWHIDE?>') {
-			myform.action = myform.action + "&cache=<?php echo User::CACHE_HIDE?>";
-		}
-		myform.submit();
-	}
 </script>
 <div class="container-fluid">
 	<!-- Begin page heading -->
@@ -36,24 +22,24 @@
 		<div class="the-box rounded">
 			<div class="the-box rounded form-group">
 				<div class="col-xs-12 col-md-2">
-					<a href="javascript:void(0);open('<?php echo CREATE?>');"
+					<a href="javascript:void(0);open('user_datatable_form','<?php echo CREATE?>','controls/UserControl.php');"
 						class="btn btn-success btn-rounded-lg col-md-12 col-xs-12"> <i
 						class="fa fa-plus"></i><?php i18n::getLabel("message.user.manageuser.button.new");?>
 					</a>
 				</div>
 				<div class="col-xs-12 col-md-2">
-					<a href="javascript:void(0);open('<?php echo EDIT?>');"
+					<a href="javascript:void(0);open('user_datatable_form','<?php echo EDIT?>','controls/UserControl.php');"
 						class="btn btn-success btn-rounded-lg col-md-12 col-xs-12"> <i
 						class="fa fa-pencil"></i><?php i18n::getLabel("message.user.manageuser.button.edit");?>
 					</a>
 				</div>
 				<div class="col-xs-12 col-md-3">
-					<a href="javascript:void(0);open('<?php echo SHOWHIDE?>');"
+					<a href="javascript:void(0);open('user_datatable_form','<?php echo SHOWHIDE?>','controls/UserControl.php');"
 						class="btn btn-success btn-rounded-lg col-md-12 col-xs-12"> <i
 						class="fa fa-eye"></i><?php i18n::getLabel("message.user.manageuser.button.show");?>
 					</a>
 				</div>
-				<a href="javascript:void(0);open('<?php echo REFRESH?>');"
+				<a href="javascript:void(0);open('user_datatable_form','<?php echo REFRESH?>','controls/UserControl.php');"
 					class="btn"><i class="fa fa-refresh"></i></a>
 			</div>
 

@@ -54,5 +54,23 @@ class Food extends BaseModel {
 		$user->setId(1);
 		$this->excuteInsert ( self::$table, get_object_vars ( $this ), $user );
 	}
+	public function readDatabaseAll($where = null, $params = null) {
+		$this->setSQL ( 'select * from '.self::$table. " " . $where );
+		$result = $this->excuteReadAll ();
+		return $this->prepareAll ( $result , "Food" );
+	}
+	public function prepare($result) {
+		$this->id = $result ['id'];
+		$this->name = $result ['name'];
+		$this->price = $result['price'];
+		$this->status = $result ['status'];
+		$this->image = $result ['image'];
+		$this->thumbnail = $result ['thumbnail'];
+		$this->reffoodtype = $result ['reffoodtype'];
+		$this->cache = $result ['cache'];
+		$this->modifydate = $result ['modifydate'];
+		$this->createdate = $result ['createdate'];
+		$this->editedby = $result ['editedby'];
+	}
 }
 ?>

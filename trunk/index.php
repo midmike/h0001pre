@@ -45,18 +45,26 @@ if ($user1->isLogin ()) {
 	// HTML HEAD
 	require_once 'public/masterPages/head.php';
 	// BODY
-	echo '<body class="tooltips" onload="checkMobileApp()">';
+	$frame = false;
+	$clearMargin = "style='margin: 0px; padding: 0px;'";
+	if(!isset($_GET[VIEW]) || $_GET[VIEW] != FRAME) {
+		$frame = true;
+		$clearMargin ='';
+	}
+	echo '<body class="tooltips" '.$clearMargin.' onload="checkMobileApp()">';
 	// ===================
 	// MAIN
 	// ===================
-	require_once 'public/masterPages/main.php';
+	if($frame) {
+		require_once 'public/masterPages/main.php';
+	}
 	if (isset ( $_GET ["menu"] )) {
 		switch ($_GET ["menu"]) {
 			case PAGE_USER_REGISTER :
 				require_once ('public/register.php');
 				break;
 			case PAGE_FOOD :
-				require_once 'public/pages/uploadPanel.php';
+				require_once 'public/pages/Food/pageManageFood.php';
 				break;
 			case PAGE_MANAGE_USER :
 				Tool::isLoginUserTypeAdmin($log_user);
@@ -72,11 +80,12 @@ if ($user1->isLogin ()) {
 	} else {
 		require_once ('public/masterPages/dashboard.php');
 	}
-	
-	require_once 'public/masterPages/footer.php';
-	// SCRIPT
+	if($frame) {
+		require_once 'public/masterPages/footer.php';
+	}// SCRIPT
 	require_once 'public/masterPages/script.php';
 	// END BODY
+	
 	echo '</body>';
 } else {
 	require_once ('public/login.php');

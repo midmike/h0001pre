@@ -5,11 +5,12 @@ define ( "PAGE_FOOD", "2" );
 define ( "PAGE_MANAGE_USER", "3" );
 define ( "PAGE_SITE_CONFIGURE", "4" );
 
-define ("VIEW","View");
+define ( "VIEW", "View");
 define ( "CREATE", "Create" );
 define ( "PAGE", "Page" );
 define ( "EDIT", "Edit" );
 define ( "SHOWHIDE", "ShowHide" );
+define ( "FRAME","frame");
 define ( "REFRESH", "Refresh" );
 require_once ("BaseModel.php");
 class Site extends BaseModel{
