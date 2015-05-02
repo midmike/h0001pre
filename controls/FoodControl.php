@@ -4,14 +4,17 @@ require_once ("../models/User.php");
 require_once ("../helper/Uploader.php");
 require_once ("../models/Food.php");
 require_once ("../helper/ImageSizer.php");
+require_once ("../models/Site.php");
 $callfunction = key ( $_GET );
 // $values get for paremeter of method
-if (isset ( $_GET ['$callfunction'] )) {
-	$values = explode ( ",", $_GET ['$callfunction'] );
+if (isset ( $_GET [$callfunction] )) {
+	$values = explode ( ",", $_GET [$callfunction] );
 }
-
-FoodControl::$callfunction ();
-
+if ($values != null) {
+	FoodControl::$callfunction ( $values );
+} else {
+	FoodControl::$callfunction ();
+}
 class FoodControl {
 
 	private static $tmpDir = "../assets/upload/tmp/";
@@ -107,5 +110,30 @@ class FoodControl {
 		$food->insertDatabase(null);
 		
 		echo json_encode($result);
+	}
+	public Static function Page($array) {
+		$log_user = Tool::getLoginUser ();
+		if ($array [0] == CREATE) {
+			header ( "Location:../?menu=" . PAGE_FOOD . "&" . VIEW . "=" . CREATE );
+		} elseif ($array [0] == EDIT) {
+			$food = new Food();
+			$food->setId ( $_GET ['id'] );
+			$food->readDatabase ();
+			SessionHandlers::saveSession ( $user, 'edit_food' );
+			header ( "Location:../?menu=" . PAGE_FOOD . "&" . VIEW . "=" . EDIT );
+		} elseif ($array [0] == SHOWHIDE) {
+			header ( "Location:../?menu=" . PAGE_FOOD . "&cache=" . $_GET ['cache'] );
+		} elseif ($array [0] == REFRESH) {
+			header ( "Location:../?menu=" . PAGE_FOOD );
+		} elseif ($array [0] == FRAME) {
+			$food = new Food();
+			//print_r($food->readDatabaseAll ());
+			SessionHandlers::saveSession ( $food->readDatabaseAll (), 'foodList' );
+			header ( "Location:../?menu=" . PAGE_FOOD . "&" . VIEW . "=" . FRAME );
+		} 
+		else {
+			echo "page not found";
+		}
+		exit ();
 	}
 }

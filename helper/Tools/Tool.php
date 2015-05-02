@@ -92,8 +92,21 @@ class Tool {
 	public static function getCurrentHost() {
 		return 'http://'.$_SERVER['HTTP_HOST'];
 	}
-	public static function isNotAndNotEmpty($object,$fieldname) {
+	public static function isNotSetAndNotEmpty($object,$fieldname) {
 		return isset($object[$fieldname]) && !empty($object[$fieldname]);
+	}
+	public static function getObjectFromArray($arrayObject,$index){
+		return $arrayObject->offsetGet($index);
+	}
+	public static function getURIFileUploadImage($imageName) {
+		$thumbnailUrl = 'assets/upload/thumbnail';
+		$imageUrl = 'assets/upload/images';
+		if(file_exists($thumbnailUrl.'/'.$imageName)) {
+			return $thumbnailUrl.'/'.$imageName;
+		} else if (file_exists($imageUrl.'/'.$imageName)) {
+			return $imageUrl.'/'.$imageName;
+		} else 
+			return 'NoSourceExist';
 	}
 	/* 
 	public static function getLoginUser() {
